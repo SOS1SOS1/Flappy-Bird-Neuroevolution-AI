@@ -15,7 +15,7 @@ class Bird {
     if (brain) {
       this.brain = brain.copy();
     } else {
-      this.brain = new NeuralNetwork(4, 8, 2);
+      this.brain = new NeuralNetwork(3, 8, 2);
     }
 
     this.red = Math.random() * 255;
@@ -41,9 +41,8 @@ class Bird {
     // uses brain to decide if to jump
     let inputs = [];
     inputs[0] = this.y / height;
-    inputs[1] = nextPipe.getX() / width;
-    inputs[2] = nextPipe.getGapY() / height;
-    inputs[3] = this.velocity / 10;
+    inputs[1] = Math.abs(this.y - nextPipe.getTop())
+    inputs[2] = Math.abs(this.y - nextPipe.getBottom())
     let outputs = this.brain.feedForward(inputs);
 
     if (outputs[0] > outputs[1]) {
